@@ -1,1 +1,763 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="pageTitle404"></title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <style>
+        :root {
+            --primary-color: #2ecc71; 
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            
+            --light-bg: #f4f7f6;
+            --light-card-bg: #ffffff;
+            --light-text-primary: #333333;
+            --light-text-secondary: #555555;
+            --light-heading-color: #2c3e50;
+            --light-border-color: #e0e0e0;
+            --light-shadow-color: rgba(0,0,0,0.08);
+
+            --dark-bg: #1a1a2e;
+            --dark-card-bg: #2a2a3e;
+            --dark-text-primary: #e0e0e0;
+            --dark-text-secondary: #b0b0b0;
+            --dark-heading-color: #ffffff;
+            --dark-border-color: #444444;
+            --dark-shadow-color: rgba(0,0,0,0.2);
+
+            --bg-color: var(--light-bg);
+            --card-bg-color: var(--light-card-bg);
+            --text-primary-color: var(--light-text-primary);
+            --text-secondary-color: var(--light-text-secondary);
+            --heading-color: var(--light-heading-color);
+            --border-color: var(--light-border-color);
+            --shadow-color: var(--light-shadow-color);
+
+            --header-height: 70px;
+            --border-radius: 12px;
+            --transition-speed: 0.3s;
+            --section-padding: 80px 0;
+        }
+
+        html.dark-mode {
+            --bg-color: var(--dark-bg);
+            --card-bg-color: var(--dark-card-bg);
+            --text-primary-color: var(--dark-text-primary);
+            --text-secondary-color: var(--dark-text-secondary);
+            --heading-color: var(--dark-heading-color);
+            --border-color: var(--dark-border-color);
+            --shadow-color: var(--dark-shadow-color);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary-color);
+            background-color: var(--bg-color);
+            overflow-x: hidden;
+            font-size: 1rem;
+            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+        }
+
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: var(--card-bg-color);
+            padding: 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px var(--shadow-color);
+            height: var(--header-height);
+            transition: background-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease, height var(--transition-speed) ease;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .brand h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            color: var(--heading-color);
+            margin: 0;
+            font-weight: 700;
+            transition: color var(--transition-speed) ease;
+        }
+
+        .brand h1 span {
+            color: var(--primary-color);
+        }
+
+        nav#main-nav ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            margin:0; 
+            padding:0;
+        }
+
+        nav#main-nav ul li {
+            margin-left: 35px;
+        }
+        
+        nav#main-nav ul li:first-child {
+            margin-left: 0;
+        }
+
+        nav#main-nav ul li a {
+            color: var(--text-secondary-color);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        nav#main-nav ul li a::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -2px;
+            width: 0;
+            height: 2.5px;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease-in-out;
+            border-radius: 2px;
+        }
+
+        nav#main-nav ul li a:hover,
+        nav#main-nav ul li a.active-link {
+            color: var(--primary-color);
+        }
+
+        nav#main-nav ul li a:hover::after,
+        nav#main-nav ul li a.active-link::after {
+            width: 100%;
+        }
+
+        .theme-toggle-button {
+            background: none;
+            border: none;
+            color: var(--text-secondary-color);
+            font-size: 1.4rem;
+            cursor: pointer;
+            margin-left: 30px;
+            transition: color var(--transition-speed) ease, transform 0.2s ease;
+            padding: 5px;
+        }
+        .theme-toggle-button:hover {
+            color: var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        .language-toggle-item {
+            display: flex;
+            gap: 5px;
+            margin-left: 20px;
+        }
+
+        .language-toggle-button {
+            background: var(--light-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary-color);
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px var(--shadow-color);
+        }
+
+        .language-toggle-button.active {
+            background-color: var(--primary-color);
+            color: #fff;
+            border-color: var(--primary-color);
+        }
+
+        .language-toggle-button:not(.active):hover {
+            background-color: var(--border-color);
+            color: var(--heading-color);
+        }
+
+        html.dark-mode .language-toggle-button {
+            background: var(--dark-card-bg);
+            border-color: var(--dark-border-color);
+            color: var(--dark-text-secondary);
+        }
+
+        html.dark-mode .language-toggle-button.active {
+             background-color: var(--primary-color);
+             border-color: var(--primary-color);
+             color: #fff;
+        }
+
+        html.dark-mode .language-toggle-button:not(.active):hover {
+            background-color: var(--dark-border-color);
+            color: var(--dark-heading-color);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            width: 28px;
+            height: 22px;
+            position: relative;
+            z-index: 1005;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background: var(--heading-color);
+            border-radius: 3px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .hamburger.toggle span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.toggle span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.toggle span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        #error-404 {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            padding-top: var(--header-height);
+            position: relative;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: #fff;
+            overflow: hidden;
+        }
+        html.dark-mode #error-404 {
+             background: linear-gradient(135deg, #1e8449 0%, #2374a8 100%);
+        }
+
+        #error-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .error-content {
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeInHero 1s ease-out 0.5s forwards;
+            opacity: 0;
+            transform: translateY(20px);
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes fadeInHero {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .error-content h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            color: #fff;
+        }
+        .error-content h1 .highlight {
+            color: var(--light-bg); 
+        }
+        html.dark-mode .error-content h1 .highlight {
+            color: #f0f0f0;
+        }
+
+        .error-content .subtitle {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 30px;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #fff;
+            color: var(--primary-color);
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transform: translateZ(0);
+            transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) translateZ(10px) scale(1.05);
+            background-color: var(--accent-color);
+            color: #fff;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.1);
+            border-radius: inherit;
+            transform: translateZ(-2px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .cta-button:hover::before {
+            opacity: 1;
+        }
+
+        main {
+            padding-top: 0;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 50px 0;
+            background: var(--dark-bg); 
+            color: var(--dark-text-secondary);
+            font-size: 0.95rem;
+            margin-top: 0;
+        }
+        html.dark-mode footer {
+             background: #111122;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        @media (max-width: 992px) {
+             .error-content h1 { font-size: 3.5rem; }
+             .error-content .subtitle { font-size: 1.3rem; }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --header-height: 60px;
+            }
+            body {
+                font-size: 0.95rem;
+            }
+            .navbar {
+                padding: 0 15px;
+            }
+            .brand h1 {
+                font-size: 1.7rem;
+            }
+
+            nav#main-nav ul {
+                position: fixed;
+                top: var(--header-height);
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - var(--header-height));
+                background: var(--card-bg-color);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: left 0.35s cubic-bezier(0.68, -0.55, 0.27, 1.55), background-color var(--transition-speed) ease;
+                z-index: 999;
+                padding: 20px 0;
+                box-shadow: 0 10px 20px var(--shadow-color);
+                overflow-y: auto;
+            }
+
+            nav#main-nav ul.nav-active {
+                left: 0;
+            }
+
+            nav#main-nav ul li {
+                margin: 20px 0;
+                opacity: 0;
+                transform: translateX(-20px);
+                transition: opacity 0.4s ease, transform 0.4s ease;
+            }
+            nav#main-nav ul li:first-child {
+                margin-left: 0;
+            }
+
+            nav#main-nav ul.nav-active li {
+                 opacity: 1;
+                 transform: translateX(0);
+            }
+            
+            nav#main-nav ul.nav-active li:nth-child(1) { transition-delay: 0.20s; }
+            nav#main-nav ul.nav-active li:nth-child(2) { transition-delay: 0.25s; }
+            nav#main-nav ul.nav-active li:nth-child(3) { transition-delay: 0.30s; }
+
+
+            nav#main-nav ul li a {
+                font-size: 1.3rem;
+            }
+            
+            .theme-toggle-button {
+                margin-left: 0; 
+                font-size: 1.5rem;
+            }
+            nav#main-nav ul li.theme-toggle-item {
+                margin-top: 30px;
+            }
+            nav#main-nav ul li.language-toggle-item {
+                margin-top: 20px;
+                margin-left: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            #error-404 {
+                min-height: 90vh;
+            }
+            .error-content h1 {
+                font-size: 3rem;
+            }
+            .error-content .subtitle {
+                font-size: 1.2rem;
+            }
+            .cta-button {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .brand h1 { font-size: 1.5rem; }
+            .hamburger { width: 25px; height: 20px; }
+            .hamburger span { height: 2.5px; }
+            .hamburger.toggle span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+            .hamburger.toggle span:nth-child(3) { transform: rotate(-45deg) translate(4px, -5px); }
+
+            .error-content h1 { font-size: 2.5rem; }
+            .error-content .subtitle { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="navbar">
+        <div class="brand">
+            <h1 data-i18n="brandName"></h1>
+        </div>
+        <nav id="main-nav">
+            <ul>
+                <li><a href="/" class="nav-link" data-i18n="homeNav"></a></li>
+                <li class="language-toggle-item">
+                    <button id="language-toggle-id" class="language-toggle-button active" data-lang="id">ID</button>
+                    <button id="language-toggle-en" class="language-toggle-button" data-lang="en">EN</button>
+                </li>
+                <li class="theme-toggle-item">
+                    <button id="theme-toggle" class="theme-toggle-button" data-i18n-alt="toggleDarkModeAlt" aria-label="Toggle Dark Mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</header>
+
+<section id="error-404">
+    <canvas id="error-canvas"></canvas>
+    <div class="container">
+        <div class="error-content">
+            <h1 data-i18n="heroTitle404"><br><span class='highlight typed-text'></span></h1>
+            <p class="subtitle" data-i18n="heroSubtitle404"></p>
+            <a href="/" class="cta-button" data-i18n="goHomeBtn"><i class="fas fa-home" style="margin-right: 8px;"></i></a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>© <span id="current-year"></span> <span data-i18n="footerText"></span></p>
+    </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.155.0/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+<script>
+    const translations = {
+        id: {
+            pageTitle404: "404 - Halaman Tidak Ditemukan",
+            brandName: "Chan<span>Dra</span>",
+            homeNav: "Beranda",
+            toggleDarkModeAlt: "Toggle Dark Mode",
+            heroTitle404: "404",
+            heroSubtitle404: "Oops! Halaman yang Anda cari tidak ditemukan atau telah dipindahkan.",
+            goHomeBtn: "Kembali ke Beranda",
+            footerText: "Chandra. Semua Hak Dilindungi.",
+            typedStrings404: ["Halaman tidak ditemukan.", "Page Not Found.", "Kesalahan 404."]
+        },
+        en: {
+            pageTitle404: "404 - Page Not Found",
+            brandName: "Chan<span>Dra</span>",
+            homeNav: "Home",
+            toggleDarkModeAlt: "Toggle Dark Mode",
+            heroTitle404: "404",
+            heroSubtitle404: "Oops! The page you're looking for doesn't exist or has been moved.",
+            goHomeBtn: "Go Home",
+            footerText: "Chandra. All Rights Reserved.",
+            typedStrings404: ["Page not found.", "Error 404.", "Oops!"]
+        }
+    };
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const navElement = document.getElementById('main-nav');
+        const navUl = navElement.querySelector('ul');
+        const hamburger = document.querySelector('.hamburger');
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeToggleIcon = themeToggle.querySelector('i');
+        const header = document.querySelector('header');
+        const currentYearSpan = document.getElementById('current-year');
+
+        if (currentYearSpan) {
+            currentYearSpan.textContent = new Date().getFullYear();
+        }
+
+        let currentLanguage = localStorage.getItem('language') || 'id';
+
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            document.documentElement.lang = lang;
+            localStorage.setItem('language', lang);
+
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.innerHTML = translations[lang][key];
+                }
+            });
+
+            document.querySelectorAll('[data-i18n-alt]').forEach(element => {
+                const key = element.getAttribute('data-i18n-alt');
+                if (translations[lang] && translations[lang][key]) {
+                    const attr = element.getAttribute('aria-label') ? 'aria-label' : 'alt';
+                    element.setAttribute(attr, translations[lang][key]);
+                }
+            });
+
+            document.querySelectorAll('.language-toggle-button').forEach(button => {
+                if (button.getAttribute('data-lang') === lang) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+
+            initTypedJS();
+        }
+
+        document.querySelectorAll('.language-toggle-button').forEach(button => {
+            button.addEventListener('click', () => {
+                setLanguage(button.getAttribute('data-lang'));
+            });
+        });
+
+        let currentTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (currentTheme === null) {
+            currentTheme = prefersDark ? 'dark' : 'light';
+        }
+        
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark-mode');
+                if(themeToggleIcon) {
+                    themeToggleIcon.classList.remove('fa-moon');
+                    themeToggleIcon.classList.add('fa-sun');
+                }
+            } else {
+                document.documentElement.classList.remove('dark-mode');
+                 if(themeToggleIcon) {
+                    themeToggleIcon.classList.remove('fa-sun');
+                    themeToggleIcon.classList.add('fa-moon');
+                }
+            }
+            localStorage.setItem('theme', theme);
+        }
+
+        if (themeToggle) {
+            applyTheme(currentTheme);
+            themeToggle.addEventListener('click', () => {
+                currentTheme = document.documentElement.classList.contains('dark-mode') ? 'light' : 'dark';
+                applyTheme(currentTheme);
+            });
+        }
+
+        if (hamburger && navUl) {
+            hamburger.addEventListener('click', () => {
+                navUl.classList.toggle('nav-active');
+                hamburger.classList.toggle('toggle');
+                if (navUl.classList.contains('nav-active')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+
+        document.querySelectorAll('a[href^="/"], a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetHref = this.getAttribute('href');
+                if (targetHref === '/' || targetHref === '#') {
+                    if (navUl && navUl.classList.contains('nav-active')) {
+                        navUl.classList.remove('nav-active');
+                        if (hamburger) hamburger.classList.remove('toggle');
+                        document.body.style.overflow = '';
+                    }
+                }
+            });
+        });
+        
+        function initTypedJS() {
+            if (typeof Typed !== 'undefined' && document.querySelector('.typed-text')) {
+                if (window.typedInstance) {
+                    window.typedInstance.destroy();
+                }
+                window.typedInstance = new Typed('.typed-text', {
+                    strings: translations[currentLanguage].typedStrings404,
+                    typeSpeed: 70,
+                    backSpeed: 40,
+                    loop: true,
+                    smartBackspace: true,
+                    backDelay: 1500
+                });
+            }
+        }
+
+        const canvas = document.getElementById('error-canvas');
+        if (canvas) {
+            let scene, camera, renderer, particles;
+
+            function initThreeJS() {
+                scene = new THREE.Scene();
+                camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setPixelRatio(window.devicePixelRatio);
+                
+                camera.position.z = 50;
+
+                const particleCount = 1000;
+                const positions = new Float32Array(particleCount * 3);
+                const colors = new Float32Array(particleCount * 3);
+
+                const color1 = new THREE.Color(0x71e6ad);
+                const color2 = new THREE.Color(0x81b0ed);
+
+                for (let i = 0; i < particleCount; i++) {
+                    const i3 = i * 3;
+                    positions[i3] = (Math.random() - 0.5) * 200;
+                    positions[i3 + 1] = (Math.random() - 0.5) * 200;
+                    positions[i3 + 2] = (Math.random() - 0.5) * 200;
+
+                    const mixedColor = new THREE.Color().lerpColors(color1, color2, Math.random());
+                    colors[i3] = mixedColor.r;
+                    colors[i3 + 1] = mixedColor.g;
+                    colors[i3 + 2] = mixedColor.b;
+                }
+
+                const geometry = new THREE.BufferGeometry();
+                geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+                geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+                const material = new THREE.PointsMaterial({ 
+                    size: 0.5, 
+                    vertexColors: true,
+                    transparent: true,
+                    opacity: 0.8,
+                    sizeAttenuation: true
+                });
+
+                particles = new THREE.Points(geometry, material);
+                scene.add(particles);
+
+                window.addEventListener('resize', onWindowResize);
+            }
+
+            function onWindowResize() {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+
+            function animateThreeJS() {
+                requestAnimationFrame(animateThreeJS);
+
+                if (particles) {
+                    particles.rotation.x += 0.0005;
+                    particles.rotation.y += 0.0007;
+                }
+
+                renderer.render(scene, camera);
+            }
+
+            initThreeJS();
+            animateThreeJS();
+        }
+
+        setLanguage(currentLanguage);
+    });
+</script>
+
+</body>
+</html>
